@@ -48,12 +48,37 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
+    userName      String?   @unique
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    phoneNumber   String?   @unique
+    tasks         Task[]    @relation("tasks")
+    oversees      Task[]    @relation("oversee")
     accounts      Account[]
     sessions      Session[]
+}
+
+enum Status {
+    REQUESTED
+    PENDING
+    COMPLETE
+    APPROVED
+    RETURNED
+}
+
+model Task {
+    idd              String   @id @default(cuid())
+    creatorId        String
+    overseerUsername String
+    title            String
+    description      String
+    createdAt        DateTime
+    expireAt         DateTime
+    reward           Int
+    status           Status
+    User             User     @relation("tasks", fields: [creatorId], references: [id])
+    Overseer         User     @relation("oversee", fields: [overseerUsername], references: [id])
 }
 
 model VerificationToken {
