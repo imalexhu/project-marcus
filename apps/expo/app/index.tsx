@@ -84,6 +84,26 @@ const CreatePost: React.FC = () => {
   );
 };
 
+const ProfileHeaderButton = () => {
+  return (
+    <Button
+      onPress={() => void console.log("Go to profile")}
+      title="Profile"
+      color={"#000000"}
+    />
+  );
+};
+
+const AddTaskHeaderButton = () => {
+  return (
+    <Button
+      onPress={() => void console.log("add Task")}
+      title="+ Task"
+      color={"#000000"}
+    />
+  );
+};
+
 const Index = () => {
   const postQuery = api.post.all.useQuery();
 
@@ -94,23 +114,19 @@ const Index = () => {
   return (
     <SafeAreaView className="bg-[#1F104A]">
       {/* Changes page title visible on the header */}
-      <Stack.Screen options={{ title: "Home Page" }} />
+      <Stack.Screen
+        options={{
+          title: "Tasks",
+          headerLeft: ProfileHeaderButton,
+          headerRight: AddTaskHeaderButton,
+        }}
+      />
       <View className="h-full w-full p-4">
-        <Text className="mx-auto pb-2 text-5xl font-bold text-white">
-          Create <Text className="text-pink-400">T3</Text> Turbo
-        </Text>
-
         <Button
           onPress={() => void postQuery.refetch()}
           title="Refresh posts"
           color={"#f472b6"}
         />
-
-        <View className="py-2">
-          <Text className="font-semibold italic text-white">
-            Press on a post
-          </Text>
-        </View>
 
         <FlashList
           data={postQuery.data}
@@ -124,7 +140,7 @@ const Index = () => {
           )}
         />
 
-        <CreatePost />
+        {/* <CreatePost /> */}
       </View>
     </SafeAreaView>
   );
