@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { renderTrpcPanel } from "trpc-panel";
 
-import { appRouter } from "../../../../packages/api/index";
+import { appRouter } from "@acme/api";
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   res.status(200).send(

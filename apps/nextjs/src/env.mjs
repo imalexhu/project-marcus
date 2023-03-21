@@ -67,6 +67,8 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
       : client.safeParse(processEnv) // on client we can only validate the ones that are exposed
   );
 
+  console.log(parsed);
+
   if (parsed.success === false) {
     console.error(
       "❌ Invalid environment variables:",
